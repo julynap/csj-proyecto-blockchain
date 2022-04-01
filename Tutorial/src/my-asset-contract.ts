@@ -5,6 +5,7 @@
 import { Context, Contract, Info, Returns, Transaction } from 'fabric-contract-api';
 import { MyAsset } from './my-asset';
 
+
 @Info({title: 'MyAssetContract', description: 'My Smart Contract' })
 export class MyAssetContract extends Contract {
 
