@@ -1,0 +1,44 @@
+[
+    {
+        "transactionName": "processAssetExists",
+        "transactionLabel": "A test processAssetExists transaction",
+        "arguments": [
+            "001"
+        ],
+        "transientData": {}
+    },
+    {
+        "transactionName": "createProcessAsset",
+        "transactionLabel": "A test createProcessAsset transaction",
+        "arguments": [
+            "001",
+            "some value"
+        ],
+        "transientData": {}
+    },
+    {
+        "transactionName": "readProcessAsset",
+        "transactionLabel": "A test readProcessAsset transaction",
+        "arguments": [
+            "001"
+        ],
+        "transientData": {}
+    },
+    {
+        "transactionName": "updateProcessAsset",
+        "transactionLabel": "A test updateProcessAsset transaction",
+        "arguments": [
+            "001",
+            "some other value"
+        ],
+        "transientData": {}
+    },
+    {
+        "transactionName": "deleteProcessAsset",
+        "transactionLabel": "A test deleteProcessAsset transaction",
+        "arguments": [
+            "001"
+        ],
+        "transientData": {}
+    }
+]

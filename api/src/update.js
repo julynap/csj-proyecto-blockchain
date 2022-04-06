@@ -7,15 +7,18 @@ const path = require('path');
 const connect = require('./commons/connection.js');
 
 
-async function create(object) {
+async function update(object) {
   try {
 
     // Get the contract from the network.
     let contract = await connect.connectNetwork();
 
-    // Submit the specified transaction.
-    const result = await contract.submitTransaction('createProcessAsset', object.assetId, object.value,object.type, object.state, object.owner, object.action,object.engineList, object.associatedDocuments);
-    console.log('Transaction has been submitted');
+    // update the specified transaction.
+    const result = await contract.submitTransaction('updateProcessAsset', object.assetId, object.value,object.type, object.state, object.owner, object.action,object.engineList, object.associatedDocuments);
+    console.log('Transaction has been updated');
+
+    // Disconnect from the gateway.
+   // gateway.disconnect();
 
      let response= JSON.parse(result);
      let res={
@@ -24,13 +27,13 @@ async function create(object) {
      return res;
 
   } catch (error) {
-    console.error('Failed to submit transaction:',error);
+    console.error('Failed to update transaction:',error);
     let msgResponse= {
         code: 500,
-        message: 'Failed to submit transaction:'+error 
+        message: 'Failed to update transaction:'+error 
     }
 
     return msgResponse;
   }
 }
-module.exports = {create}
+module.exports = {update}

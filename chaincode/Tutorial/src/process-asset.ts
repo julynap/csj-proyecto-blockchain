@@ -6,7 +6,7 @@ import { Object, Param, Property } from 'fabric-contract-api';
 //import './engine';
 
 @Object()
-export class MyAsset {
+export class ProcessAsset {
 
     @Property()
     public value: string;

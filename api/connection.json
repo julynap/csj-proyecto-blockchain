@@ -1,7 +1,7 @@
 {
     "certificateAuthorities": {
-        "org1ca-api.127-0-0-1.nip.io:8081": {
-            "url": "http://org1ca-api.127-0-0-1.nip.io:8081"
+        "org1ca-api.127-0-0-1.nip.io:8080": {
+            "url": "http://org1ca-api.127-0-0-1.nip.io:8080"
         }
     },
     "client": {
@@ -21,24 +21,21 @@
     "organizations": {
         "Org1": {
             "certificateAuthorities": [
-                "org1ca-api.127-0-0-1.nip.io:8081"
+                "org1ca-api.127-0-0-1.nip.io:8080"
             ],
             "mspid": "Org1MSP",
             "peers": [
-                "org1peer-api.127-0-0-1.nip.io:8081"
+                "org1peer-api.127-0-0-1.nip.io:8080"
             ]
         }
     },
     "peers": {
-        "org1peer-api.127-0-0-1.nip.io:8081": {
+        "org1peer-api.127-0-0-1.nip.io:8080": {
             "grpcOptions": {
-                "grpc.default_authority": "org1peer-api.127-0-0-1.nip.io:8081",
-                "grpc.ssl_target_name_override": "org1peer-api.127-0-0-1.nip.io:8081"
+                "grpc.default_authority": "org1peer-api.127-0-0-1.nip.io:8080",
+                "grpc.ssl_target_name_override": "org1peer-api.127-0-0-1.nip.io:8080"
             },
-            "url": "grpc://org1peer-api.127-0-0-1.nip.io:8081",
-            "tlsCACerts": {
-                "pem": "-----BEGIN CERTIFICATE-----\nMIIBzzCCAXWgAwIBAgIRAIXU+CeJjOB72iLsdG+zNlIwCgYIKoZIzj0EAwIwEjEQ\nMA4GA1UEAxMHT3JnMSBDQTAeFw0yMjAzMzEyMjA4MjlaFw0zMjAzMjgyMjA4Mjla\nMCUxDjAMBgNVBAsTBWFkbWluMRMwEQYDVQQDEwpPcmcxIEFkbWluMFkwEwYHKoZI\nzj0CAQYIKoZIzj0DAQcDQgAEaYt7BmqKR2GKCVOlcHKCtas6QZseG5yK98HkxYQo\n/0IdhgBDJeXycKBGe12qud/w/vu3bA6MHcK7Qyi569T/PaOBmDCBlTAOBgNVHQ8B\nAf8EBAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMBMAwGA1UdEwEB\n/wQCMAAwKQYDVR0OBCIEIOQtbbSoLvaMhr6LXDvj+Ka790vSyh2t7NCNJu1i30HB\nMCsGA1UdIwQkMCKAIFlKDWLxl7Jxm3bHle7MEV8rWjFzJcC0BlOGhlOgKoTNMAoG\nCCqGSM49BAMCA0gAMEUCIDxHvV4ce1cZH6BMVYn0BhAmJeHHM/j96G2oy46Qedfj\nAiEA3cjO64yCdqPRDJFE4ZC2xBgIX3APN6LU5K11/A2VqQw=\n-----END CERTIFICATE-----\n"
-            }
+            "url": "grpc://org1peer-api.127-0-0-1.nip.io:8080"
         }
     },
     "type": "gateway",

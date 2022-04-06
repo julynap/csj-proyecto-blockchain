@@ -4,7 +4,7 @@
 
 import { Context } from 'fabric-contract-api';
 import { ChaincodeStub, ClientIdentity } from 'fabric-shim';
-import { MyAssetContract } from '.';
+import { ProcessAssetContract } from '.';
 
 import * as chai from 'chai';
 import * as chaiAsPromised from 'chai-as-promised';
@@ -25,83 +25,83 @@ class TestContext implements Context {
      };
 }
 
-describe('MyAssetContract', () => {
+describe('ProcessAssetContract', () => {
 
-    let contract: MyAssetContract;
+    let contract: ProcessAssetContract;
     let ctx: TestContext;
 
     beforeEach(() => {
-        contract = new MyAssetContract();
+        contract = new ProcessAssetContract();
         ctx = new TestContext();
         ctx.stub.getState.withArgs('1001').resolves(Buffer.from('{"value":"my asset 1001 value"}'));
         ctx.stub.getState.withArgs('1002').resolves(Buffer.from('{"value":"my asset 1002 value"}'));
     });
 
-    describe('#myAssetExists', () => {
+    describe('#processAssetExists', () => {
 
         it('should return true for a my asset', async () => {
-            await contract.myAssetExists(ctx, '1001').should.eventually.be.true;
+            await contract.processAssetExists(ctx, '1001').should.eventually.be.true;
         });
 
         it('should return false for a my asset that does not exist', async () => {
-            await contract.myAssetExists(ctx, '1003').should.eventually.be.false;
+            await contract.processAssetExists(ctx, '1003').should.eventually.be.false;
         });
 
     });
 
 
-    describe('#createMyAsset', () => {
+    describe('#createProcessAsset', () => {
       
         let engineList= [{ "key":"documento","value":"cedula"}];
         let associatedDocuments=["yw2y2u21uy"];
         it('should create a my asset', async () => {
             
             
-            await contract.createMyAsset(ctx, '1003', 'my asset 1003 value','my type', 'create', 'andres', 'excute',JSON.stringify(engineList), JSON.stringify(associatedDocuments));
+            await contract.createProcessAsset(ctx, '1003', 'my asset 1003 value','my type', 'create', 'andres', 'excute',JSON.stringify(engineList), JSON.stringify(associatedDocuments));
             ctx.stub.putState.should.have.been.calledOnceWithExactly('1003', Buffer.from('{"value":"my asset 1003 value"}'));
         });
 
         it('should throw an error for a my asset that already exists', async () => {
             
-            await contract.createMyAsset(ctx, '1001', 'myvalue','my type', 'create', 'andres', 'excute',JSON.stringify(engineList), JSON.stringify(associatedDocuments)).should.be.rejectedWith(/The my asset 1001 already exists/);
+            await contract.createProcessAsset(ctx, '1001', 'myvalue','my type', 'create', 'andres', 'excute',JSON.stringify(engineList), JSON.stringify(associatedDocuments)).should.be.rejectedWith(/The my asset 1001 already exists/);
         });
 
     });
 
-    describe('#readMyAsset', () => {
+    describe('#readProcessAsset', () => {
 
         it('should return a my asset', async () => {
-            await contract.readMyAsset(ctx, '1001').should.eventually.deep.equal({ value: 'my asset 1001 value' });
+            await contract.readProcessAsset(ctx, '1001').should.eventually.deep.equal({ value: 'my asset 1001 value' });
         });
 
         it('should throw an error for a my asset that does not exist', async () => {
-            await contract.readMyAsset(ctx, '1003').should.be.rejectedWith(/The my asset 1003 does not exist/);
+            await contract.readProcessAsset(ctx, '1003').should.be.rejectedWith(/The my asset 1003 does not exist/);
         });
 
     });
 
-    describe('#updateMyAsset', () => {
+    describe('#updateProcessAsset', () => {
 
         it('should update a my asset', async () => {
-            await contract.updateMyAsset(ctx, '1001', 'my asset 1001 new value');
+            await contract.updateProcessAsset(ctx, '1001', 'my asset 1001 new value');
             ctx.stub.putState.should.have.been.calledOnceWithExactly('1001', Buffer.from('{"value":"my asset 1001 new value"}'));
         });
 
         it('should throw an error for a my asset that does not exist', async () => {
-            await contract.updateMyAsset(ctx, '1003', 'my asset 1003 new value').should.be.rejectedWith(/The my asset 1003 does not exist/);
+            await contract.updateProcessAsset(ctx, '1003', 'my asset 1003 new value').should.be.rejectedWith(/The my asset 1003 does not exist/);
         });
 
     });
 
-    describe('#deleteMyAsset', () => {
+    describe('#deleteProcessAsset', () => {
 
         it('should delete a my asset', async () => {
-            await contract.deleteMyAsset(ctx, '1001');
+            await contract.deleteProcessAsset(ctx, '1001');
             ctx.stub.deleteState.should.have.been.calledOnceWithExactly('1001');
         });
 
         it('should throw an error for a my asset that does not exist', async () => {
-            await contract.deleteMyAsset(ctx, '1003').should.be.rejectedWith(/The my asset 1003 does not exist/);
+            await contract.deleteProcessAsset(ctx, '1003').should.be.rejectedWith(/The my asset 1003 does not exist/);
         });
 
     });
