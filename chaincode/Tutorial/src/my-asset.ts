@@ -3,7 +3,7 @@
  */
 
 import { Object, Param, Property } from 'fabric-contract-api';
-import './engine';
+//import './engine';
 
 @Object()
 export class MyAsset {
