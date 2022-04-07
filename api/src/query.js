@@ -9,7 +9,7 @@ const connect = require('./commons/connection.js');
 
 async function consulta(id) {
   try {
-
+    // Get the contract from the network.
     let contract = await connect.connectNetwork();
     // Evaluate the specified transaction.
     const result = await contract.evaluateTransaction('readProcessAsset', id);

@@ -5,7 +5,7 @@ const { Gateway, Wallets } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
 
-
+//Funcion que captura el error de parametros y retorna la excepcion
 function ExcepcionError(description, mensaje) {
   this.exepcion = description;
   this.mensaje = mensaje
@@ -14,6 +14,7 @@ function ExcepcionError(description, mensaje) {
   };
 }
 
+//Funcion encargada de validar parametros
 function validarParametro(nombre, val, tipo, obligatorio, minCifrasInt,  cifrasInt, cifrasDec) {
   var mensaje = '';
   if (typeof val == 'undefined' || val == null || val.length == 0) {

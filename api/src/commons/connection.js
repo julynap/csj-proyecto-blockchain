@@ -5,7 +5,7 @@ const { Gateway, Wallets } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
 
-
+//Funcion que maneja la coneccion al chaincode
 async function connectNetwork() {
   try {
 

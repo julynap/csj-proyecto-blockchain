@@ -11,28 +11,29 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+
+//Punto de acceso GET para consultar el proceso por id
 app.get('/api/reparto/proceso/:id', async function (req, res) {
   try {
      console.log(req.params.id);
 
      let response="";
+     //Llama la funcion que consulta el chaincode
      const msj = await query.consulta( req.params.id.toString());
      console.error(`Response : ${msj}`);
-
-     
+     //Valida que la respuesta no tenga el codigo 500
      if(msj.code!="500"){
-      msj.associatedDocuments= JSON.parse(msj.associatedDocuments);
-      msj.engineList=JSON.parse(msj.engineList);
-      response ={
-                   codigo:200,
-                   mensaje:"Transacción Exitosa",
-                   Data:msj
-      }
+        msj.associatedDocuments= JSON.parse(msj.associatedDocuments);
+        msj.engineList=JSON.parse(msj.engineList);
+        response ={
+                    codigo:200,
+                    mensaje:"Transacción Exitosa",
+                    Data:msj
+        }
 
      }else{
-      response=msj;
+        response=msj;
      }
-
      res.json(response);
   } catch (error) {
     console.error(`Failed to evaluate transaction: ${error}`);
@@ -41,11 +42,11 @@ app.get('/api/reparto/proceso/:id', async function (req, res) {
     });
   }
 })
-
+//Punto de acceso POST para crear el Proceso
 app.post('/api/reparto/proceso', async function (req, res) {
 
   try {
-
+      //Validar estructura de entrada del api
       util.validarParametro('assetId', req.body.assetId,'String',true,1, 20);
       util.validarParametro('value', req.body.value,'String',true,1, 20);
       util.validarParametro('type', req.body.type,'String',true,1, 20);
@@ -56,12 +57,12 @@ app.post('/api/reparto/proceso', async function (req, res) {
       util.validarParametro('associatedDocuments', req.body.associatedDocuments,'Array',true,1, 20);
 
       console.log(req.body);
+      //convierte en string los arreglos, ya que el chaincode no soporte envio de arreglos
       req.body.engineList= JSON.stringify(req.body.engineList);
       req.body.associatedDocuments= JSON.stringify(req.body.associatedDocuments);
-
+      //funcion que llama el chaincode para crear el proceso
       const response = await createAsset.create(req.body);
       res.json(response);
-  
   } catch (error) {
     console.error(`Failed to summit transaction: ${error}`);
     res.status(500).json({
@@ -73,11 +74,11 @@ app.post('/api/reparto/proceso', async function (req, res) {
 
 
 
-
+//Punto de acceso PUT para actualizar el Proceso
 app.put('/api/reparto/proceso', async function (req, res) {
 
   try {
-
+      //Validar estructura de entrada del api
       util.validarParametro('assetId', req.body.assetId,'String',true,1, 20);
       util.validarParametro('value', req.body.value,'String',true,1, 20);
       util.validarParametro('type', req.body.type,'String',true,1, 20);
@@ -88,9 +89,10 @@ app.put('/api/reparto/proceso', async function (req, res) {
       util.validarParametro('associatedDocuments', req.body.associatedDocuments,'Array',true,1, 20);
 
       console.log(req.body);
+      //convierte en json  los arreglos que estan en string, ya que el chaincode no soporte los arreglos
       req.body.engineList= JSON.stringify(req.body.engineList);
       req.body.associatedDocuments= JSON.stringify(req.body.associatedDocuments);
-
+      //funcion que llama el chaincode para crear el proceso
       const response = await updateAsset.update(req.body);
       res.json(response);
   
