@@ -16,7 +16,7 @@ export class ProcessAssetContract extends Contract {
     }
 
     @Transaction()
-    public async createProcessAsset(ctx: Context, processAssetId: string, value: string,
+    public async createProcessAsset(ctx: Context, processAssetId: string, code: string,
         type: string,
         state: string,
         owner: string,
@@ -28,14 +28,14 @@ export class ProcessAssetContract extends Contract {
         const exists: boolean = await this.processAssetExists(ctx, processAssetId);
         if (exists) {
             let msgResponse ={
-                codigo: 500,
+                codigo: 400,
                 mensaje:"El asset " +processAssetId + " ya existe."
             }
             return msgResponse;
           }
         
         const processAsset: ProcessAsset = new ProcessAsset();
-        processAsset.value = value;
+        processAsset.code = code;
         processAsset.type = type;
         processAsset.state = state;
         processAsset.owner = owner;
@@ -60,7 +60,7 @@ export class ProcessAssetContract extends Contract {
         if (!exists) {
            // throw new Error(`The my asset ${processAssetId} does not exist`);
            let msgResponse= {
-                               code: 500,
+                               code: 400,
                                message: `El asset ${processAssetId} no existe` 
                             }
 
@@ -72,7 +72,7 @@ export class ProcessAssetContract extends Contract {
     }
 
     @Transaction()
-    public async updateProcessAsset(ctx: Context, processAssetId: string, value: string,
+    public async updateProcessAsset(ctx: Context, processAssetId: string, code: string,
             type: string,
             state: string,
             owner: string,
@@ -85,14 +85,14 @@ export class ProcessAssetContract extends Contract {
         if (!exists) {
             //throw new Error(`The my asset ${processAssetId} does not exist`);
             let msgResponse ={
-                codigo: 500,
+                codigo: 400,
                 mensaje:"El  asset " +processAssetId + " no existe."
             }
             return msgResponse;
         }
       
         const processAsset: ProcessAsset = new ProcessAsset();
-        processAsset.value = value;
+        processAsset.code = code;
         processAsset.type = type;
         processAsset.state = state;
         processAsset.owner = owner;
@@ -116,7 +116,7 @@ export class ProcessAssetContract extends Contract {
         if (!exists) {
             //throw new Error(`The my asset ${processAssetId} does not exist`);
             let msgResponse ={
-                codigo: 500,
+                codigo: 400,
                 mensaje:"El asset " +processAssetId + " no existe."
             }
             return msgResponse;

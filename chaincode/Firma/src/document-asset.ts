@@ -6,7 +6,7 @@ import { Object, Param, Property } from 'fabric-contract-api';
 //import './engine';
 
 @Object()
-export class ProcessAsset {
+export class DocumentAsset {
 
     
     @Property()
@@ -19,18 +19,12 @@ export class ProcessAsset {
     public owner: string;
 
     @Property()
-    public code: string;
-
-    @Property()
     public action: string;
 
     @Property()
-    public engineList: string;
+    public description: string;
 
-    @Property()
-    public associatedDocuments: string;
-    
-   
+  
     
 
     

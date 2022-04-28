@@ -25,7 +25,7 @@ async function connectNetwork() {
     const network = await gateway.getNetwork('mychannel');
 
     // Get the contract from the network.
-    const contract = network.getContract('AssetProceso');
+    const contract = network.getContract('AssetDocumento');
     
     return contract;
 
