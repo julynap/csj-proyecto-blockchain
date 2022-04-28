@@ -12,6 +12,13 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+//codigo para cargar el swagger
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 //Punto de acceso GET para consultar el proceso por id
 app.get('/api/reparto/proceso/:id', async function (req, res) {

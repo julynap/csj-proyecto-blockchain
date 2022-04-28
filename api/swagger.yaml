@@ -1,0 +1,159 @@
+openapi: 3.0.1
+info:
+  title: Web service proceso-reparto
+  description: API Rest, consejo superior.<h1> Controles de cambio <hr>21-03-2022
+  version: 2.0.0
+servers:
+- url: https://test.com:20320/consejo-judicatura/proceso/reparto
+paths:
+  /ping:
+    get:
+      summary: Server heartbeat operation
+      description: This operation is to know if the service is active
+      responses:
+        200:
+          description: OK
+          content: {}
+        500:
+          description: Error de servidor/servicio inactivo, validar con soporte cardif.
+          content: {}
+  /crear-proceso/:
+    post:
+      tags:
+      - proceso-reparto.
+      summary: proceso-reparto
+      description: proceso-reparto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/proceso-reparto-rq'
+        required: false
+      responses:
+        200:
+          description: Return
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/proceso-reparto-rs'
+        404:
+          $ref: '#/components/schemas/genericResponse'
+      x-codegen-request-body-name: crear-proceso
+      
+      
+      
+  /actualizar-proceso/:
+    put:
+      tags:
+      - actualizar-proceso.
+      summary: proceso-reparto
+      description: proceso-reparto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/proceso-reparto-rq'
+        required: false
+      responses:
+        200:
+          description: Return
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/proceso-reparto-rs'
+        404:
+          $ref: '#/components/schemas/genericResponse'
+      x-codegen-request-body-name: actualizar-proceso
+
+  
+#------------------------------------------------------------------------------------  
+components:
+  schemas:
+    proceso-reparto-rq:
+      type: object
+      properties:
+        id:
+          maxLength: 50
+          type: string
+          description: id
+        tipo:
+          maxLength: 50
+          type: string
+          description: tipo
+        estado:
+          maxLength: 50
+          type: string
+          description: estado
+        owner:
+          maxLength: 50
+          type: string
+          description: owner
+        codigo:
+          maxLength: 50
+          type: string
+          description: codigo
+        accion:
+          maxLength: 50
+          type: string
+          description: accion
+        resultadosMotor:
+          exclusiveMinimum: true
+          type: array
+          description: datos del contacto
+          items:
+            type: object
+            properties:
+              parametro:
+                type: string
+                description: id
+        documentosAsociados:
+          exclusiveMinimum: true
+          type: array
+          description: datos del contacto
+          items:
+            type: object
+            properties:
+              parametro:
+                type: string
+                description: id
+          
+
+
+
+#------------------------------------------------------------------------------------ 
+    proceso-reparto-rs:
+      type: object
+      properties:
+        statusResponse:
+          type: object
+          properties:
+            status:
+              type: string
+            description:
+              type: string
+            bodyResponse:
+              type: object
+              properties:
+                hash:
+                  exclusiveMinimum: true
+                  type: array
+                  description: datos del contacto
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: Id
+    
+
+#------------------------------------------------------------------------------------                     
+   #------------------------------------------------------------------------------------ 
+    genericResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: status
+        description:
+          type: integer
+          description: description
