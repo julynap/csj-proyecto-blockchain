@@ -21,17 +21,15 @@ async function update(object) {
    // gateway.disconnect();
 
      let response= JSON.parse(result);
-     let res={
-       response
-     }
-     return res;
+     
+     return response;
 
   } catch (error) {
     console.error('Failed to update transaction:',error);
     let msgResponse= {
-        code: 500,
-        message: 'Failed to update transaction:'+error 
-    }
+      codigo: 500,
+      mensaje: 'Failed to update transaction:'+error 
+  }
 
     return msgResponse;
   }

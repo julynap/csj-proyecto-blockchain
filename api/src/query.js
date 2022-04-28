@@ -22,7 +22,11 @@ async function consulta(id) {
 
   } catch (error) {
     console.error('Failed to evaluate transaction:',error);
-    process.exit(1);
+    let msgResponse= {
+        codigo: 500,
+        mensaje: 'Failed to update transaction:'+error 
+    }
+    return msgResponse;
   }
 }
 module.exports = {consulta}

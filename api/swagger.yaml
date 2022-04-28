@@ -1,26 +1,31 @@
 openapi: 3.0.1
 info:
-  title: Web service proceso-reparto
+  title: API proceso-reparto
   description: API Rest, consejo superior.<h1> Controles de cambio <hr>21-03-2022
   version: 2.0.0
 servers:
-- url: https://test.com:20320/consejo-judicatura/proceso/reparto
+- url: https://test.com:20320/api/reparto/proceso
 paths:
-  /ping:
+  /:
+ 
     get:
-      summary: Server heartbeat operation
+      tags:
+      - Consultar-proceso
+      summary: Consultar proceso por id proceso
       description: This operation is to know if the service is active
       responses:
         200:
           description: OK
-          content: {}
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/proceso-reparto-consulta'
         500:
-          description: Error de servidor/servicio inactivo, validar con soporte cardif.
+          description: Error de servidor/servicio inactivo, validar con soporte.
           content: {}
-  /crear-proceso/:
     post:
       tags:
-      - proceso-reparto.
+      - Crear-proceso.
       summary: proceso-reparto
       description: proceso-reparto
       requestBody:
@@ -37,15 +42,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/proceso-reparto-rs'
         404:
-          $ref: '#/components/schemas/genericResponse'
+          $ref: '#/components/schemas/proceso-reparto-generica'
       x-codegen-request-body-name: crear-proceso
       
       
-      
-  /actualizar-proceso/:
     put:
       tags:
-      - actualizar-proceso.
+      - Actualizar-proceso
       summary: proceso-reparto
       description: proceso-reparto
       requestBody:
@@ -62,13 +65,32 @@ paths:
               schema:
                 $ref: '#/components/schemas/proceso-reparto-rs'
         404:
-          $ref: '#/components/schemas/genericResponse'
+          $ref: '#/components/schemas/proceso-reparto-generica'
       x-codegen-request-body-name: actualizar-proceso
 
+    delete:
+      tags:
+      - Eliminar-proceso
+      summary: proceso-reparto
+      description: proceso-reparto
+
+      responses:
+        200:
+          description: Return
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/proceso-reparto-rs'
+        404:
+          $ref: '#/components/schemas/proceso-reparto-generica'
+      x-codegen-request-body-name: actualizar-proceso
   
 #------------------------------------------------------------------------------------  
 components:
   schemas:
+  
+ 
+            
     proceso-reparto-rq:
       type: object
       properties:
@@ -96,6 +118,35 @@ components:
           maxLength: 50
           type: string
           description: accion
+        juridiccion:
+          maxLength: 50
+          type: string
+          description: juridicion
+        despacho:
+          maxLength: 50
+          type: string
+          description: despacho
+        demandante:
+          maxLength: 50
+          type: string
+          description: demandante
+        demandado:
+          maxLength: 50
+          type: string
+          description: demandado
+        firmantes:
+          exclusiveMinimum: true
+          type: array
+          description: firmantes del proceso
+          items:
+            type: object
+            properties:
+              firmante:
+                type: string
+                description: nombre del firmante
+              firma:
+                type: string
+                description: has de la firma
         resultadosMotor:
           exclusiveMinimum: true
           type: array
@@ -103,57 +154,128 @@ components:
           items:
             type: object
             properties:
-              parametro:
+              llave:
+                type: string
+                description: id
+              valor:
                 type: string
                 description: id
         documentosAsociados:
           exclusiveMinimum: true
           type: array
-          description: datos del contacto
+          description: has documentos asociacion
           items:
-            type: object
-            properties:
-              parametro:
-                type: string
-                description: id
+            type: string
           
 
 
 
 #------------------------------------------------------------------------------------ 
+    
+
+    
+    
     proceso-reparto-rs:
       type: object
       properties:
-        statusResponse:
-          type: object
-          properties:
-            status:
+            codigo:
               type: string
-            description:
+            mensaje:
               type: string
-            bodyResponse:
+               
+               
+    proceso-reparto-consulta:
+      type: object
+      properties:
+            codigo:
+              type: string
+            mensaje:
+              type: string
+            contenido:
               type: object
               properties:
-                hash:
+                id:
+                  maxLength: 50
+                  type: string
+                  description: id
+                tipo:
+                  maxLength: 50
+                  type: string
+                  description: tipo
+                estado:
+                  maxLength: 50
+                  type: string
+                  description: estado
+                owner:
+                  maxLength: 50
+                  type: string
+                  description: owner
+                codigo:
+                  maxLength: 50
+                  type: string
+                  description: codigo
+                accion:
+                  maxLength: 50
+                  type: string
+                  description: accion
+                juridiccion:
+                  maxLength: 50
+                  type: string
+                  description: juridicion
+                despacho:
+                  maxLength: 50
+                  type: string
+                  description: despacho
+                demandante:
+                  maxLength: 50
+                  type: string
+                  description: demandante
+                demandado:
+                  maxLength: 50
+                  type: string
+                  description: demandado
+                firmantes:
+                  exclusiveMinimum: true
+                  type: array
+                  description: firmantes del proceso
+                  items:
+                    type: object
+                    properties:
+                      firmante:
+                        type: string
+                        description: nombre del firmante
+                      firma:
+                        type: string
+                        description: has de la firma
+                resultadosMotor:
                   exclusiveMinimum: true
                   type: array
                   description: datos del contacto
                   items:
                     type: object
                     properties:
-                      id:
-                        type: integer
-                        description: Id
-    
-
-#------------------------------------------------------------------------------------                     
-   #------------------------------------------------------------------------------------ 
-    genericResponse:
+                      llave:
+                        type: string
+                        description: id
+                      valor:
+                        type: string
+                        description: id
+                documentosAsociados:
+                  exclusiveMinimum: true
+                  type: array
+                  description: has documentos asociacion
+                  items:
+                    type: string
+                        
+    proceso-reparto-generica:
       type: object
       properties:
-        status:
-          type: integer
-          description: status
-        description:
-          type: integer
-          description: description
+            codigo:
+              type: string
+            mensaje:
+              type: string
+            error:
+               type: string
+              
+    
+

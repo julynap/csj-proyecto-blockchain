@@ -7,7 +7,7 @@ const path = require('path');
 
 //Funcion que captura el error de parametros y retorna la excepcion
 function ExcepcionError(description, mensaje) {
-  this.exepcion = description;
+  this.codigo = 400;
   this.mensaje = mensaje
   this.toString = function() {
      return this.valor + this.mensaje

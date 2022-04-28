@@ -37,7 +37,7 @@ app.get('/api/reparto/proceso/:id', async function (req, res) {
         response ={
                     codigo:200,
                     mensaje:"Transacción Exitosa",
-                    Data:msj
+                    contenido:msj
         }
 
      }else{
@@ -46,9 +46,9 @@ app.get('/api/reparto/proceso/:id', async function (req, res) {
      res.json(response);
   } catch (error) {
     console.error(`Failed to evaluate transaction: ${error}`);
-    res.status(500).json({
-      error: error
-    });
+    res.status(500).json(
+      error
+   );
   }
 })
 //Punto de acceso POST para crear el Proceso
@@ -81,9 +81,9 @@ app.post('/api/reparto/proceso', async function (req, res) {
       res.json(response);
   } catch (error) {
     console.error(`Failed to summit transaction: ${error}`);
-    res.status(500).json({
-      error: error
-    });
+    res.status(500).json(
+      error
+   );
   }
 
 });
@@ -114,9 +114,9 @@ app.put('/api/reparto/proceso', async function (req, res) {
   
   } catch (error) {
     console.error(`Failed to update transaction: ${error}`);
-    res.status(500).json({
-      error: error
-    });
+    res.status(500).json(
+       error
+    );
   }
 
 });
@@ -146,9 +146,9 @@ app.delete('/api/reparto/proceso/:id', async function (req, res) {
      res.json(response);
   } catch (error) {
     console.error(`Failed to evaluate transaction: ${error}`);
-    res.status(500).json({
-      error: error
-    });
+    res.status(500).json(
+      error
+   );
   }
 })
 

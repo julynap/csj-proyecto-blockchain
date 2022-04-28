@@ -18,16 +18,14 @@ async function create(object) {
     console.log('Transaction has been submitted');
 
      let response= JSON.parse(result);
-     let res={
-       response
-     }
-     return res;
+    
+     return response;
 
   } catch (error) {
     console.error('Failed to submit transaction:',error);
     let msgResponse= {
-        code: 500,
-        message: 'Failed to submit transaction:'+error 
+        codigo: 500,
+        mensaje: 'Failed to submit transaction:'+error 
     }
 
     return msgResponse;
