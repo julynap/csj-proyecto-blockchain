@@ -14,25 +14,20 @@ async function update(object) {
     let contract = await connect.connectNetwork();
 
     // update the specified transaction.
-    const result = await contract.submitTransaction('updateProcessAsset', 
+    const result = await contract.submitTransaction('updateVoteAsset', 
     object.id,
-    object.tipo,
+    object.nombre,
     object.estado,
-    object.owner,
-    object.codigo,
-    object.accion,
-    object.juridiccion,
-    object.despacho,
-    object.demandante,
-    object.demandado,
-    object.firmantes,
-    object.resultadosMotor,
-    object.documentosAsociados
+    object.fecha,
+    object.votantes,
+    object.estadoVotantes,
+    object.numeroRondas,
+    object.tipoVotantes,
+    object.eleccionCandidatos,
+    object.eleccionJudicial
     );
-    console.log('Transaction has been updated');
 
-    // Disconnect from the gateway.
-   // gateway.disconnect();
+     console.log('Transaction has been updated');
 
      let response= JSON.parse(result);
     

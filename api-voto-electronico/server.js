@@ -20,8 +20,8 @@ const swaggerDocument = YAML.load('./swagger.yaml');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
-//Punto de acceso GET para consultar el documento por id
-app.get('/api/firma/:id', async function (req, res) {
+//Punto de acceso GET para consultar el voto electronico por id
+app.get('/api/voto-electronico/:id', async function (req, res) {
   try {
 
      console.log(req.params.id);
@@ -32,8 +32,8 @@ app.get('/api/firma/:id', async function (req, res) {
      console.log(msj);
      //Valida que la respuesta no tenga el codigo 400
      if(msj.code!="400"){
-        msj.estaticos= JSON.parse(msj.estaticos);
-        msj.dinamicos=JSON.parse(msj.dinamicos);
+        msj.eleccionCandidatos= JSON.parse(msj.eleccionCandidatos);
+        msj.eleccionJudicial=JSON.parse(msj.eleccionJudicial);
         response ={
                     codigo:200,
                     mensaje:"Transacción Exitosa",
@@ -43,7 +43,6 @@ app.get('/api/firma/:id', async function (req, res) {
      }else{
         response=msj;
      }
-     console.log(response);
      res.json(response);
   } catch (error) {
     console.error(`Failed to evaluate transaction: ${error}`);
@@ -52,29 +51,31 @@ app.get('/api/firma/:id', async function (req, res) {
    );
   }
 })
-//Punto de acceso POST para crear el documento
-app.post('/api/firma', async function (req, res) {
+//Punto de acceso POST para crear el voto electronico
+app.post('/api/voto-electronico', async function (req, res) {
 
   try {
-
-     //Validar estructura de entrada del api
+      //Validar estructura de entrada del api
       util.validarParametro('id', req.body.id,'String',true,1, 20);
+      util.validarParametro('nombre', req.body.nombre,'String',true,1, 200);
       util.validarParametro('estado', req.body.estado,'String',true,1, 20);
-      util.validarParametro('owner', req.body.owner,'String',true,1, 20);
-      util.validarParametro('procesoDinamico', req.body.procesoDinamico,'String',true,1, 20);
-      util.validarParametro('documentoOriginal', req.body.documentoOriginal,'String',true,1, 20);
-      util.validarParametro('plazo', req.body.plazo,'String',true,1, 20);
-      util.validarParametro('estaticos', req.body.estaticos,'Array',true,1, 20);
-      util.validarParametro('dinamicos', req.body.dinamicos,'Array',true,1, 20);
-      util.validarParametro('firmaUsuario', req.body.firmaUsuario,'String',true,1, 50);
-      util.validarParametro('fechaHoraFirma', req.body.fechaHoraFirma,'String',true,1, 50);
-   
+      util.validarParametro('fecha', req.body.fecha,'String',true,1, 20);
+      util.validarParametro('votantes', req.body.votantes,'String',true,1, 20);
+      util.validarParametro('estadoVotantes', req.body.estadoVotantes,'String',true,1, 20);
+      util.validarParametro('numeroRondas', req.body.numeroRondas,'String',true,1, 20);
+      util.validarParametro('tipoVotantes', req.body.tipoVotantes,'String',true,1, 50);
+      util.validarParametro('eleccionCandidatos', req.body.eleccionCandidatos,'Array',true,1, 20);
+      util.validarParametro('eleccionJudicial', req.body.eleccionJudicial,'Array',true,1, 20);
+    
+     
       console.log(req.body);
       //convierte en string los arreglos, ya que el chaincode no soporte envio de arreglos
-      req.body.estaticos= JSON.stringify(req.body.estaticos);
-      req.body.dinamicos= JSON.stringify(req.body.dinamicos);
-      //funcion que llama el chaincode para crear el documento
+      req.body.eleccionCandidatos= JSON.stringify(req.body.eleccionCandidatos);
+      req.body.eleccionJudicial= JSON.stringify(req.body.eleccionJudicial);
+      console.log(req.body);
+      //funcion que llama el chaincode para crear el voto electronico
       const response = await createAsset.create(req.body);
+      console.log(response);
       res.json(response);
   } catch (error) {
     console.error(`Failed to summit transaction: ${error}`);
@@ -87,41 +88,43 @@ app.post('/api/firma', async function (req, res) {
 
 
 
-//Punto de acceso PUT para actualizar el documento
-app.put('/api/firma', async function (req, res) {
+//Punto de acceso PUT para actualizar el voto electronico
+app.put('/api/voto-electronico', async function (req, res) {
 
   try {
       //Validar estructura de entrada del api
       util.validarParametro('id', req.body.id,'String',true,1, 20);
+      util.validarParametro('nombre', req.body.nombre,'String',true,1, 200);
       util.validarParametro('estado', req.body.estado,'String',true,1, 20);
-      util.validarParametro('owner', req.body.owner,'String',true,1, 20);
-      util.validarParametro('procesoDinamico', req.body.procesoDinamico,'String',true,1, 20);
-      util.validarParametro('documentoOriginal', req.body.documentoOriginal,'String',true,1, 20);
-      util.validarParametro('plazo', req.body.plazo,'String',true,1, 20);
-      util.validarParametro('estaticos', req.body.estaticos,'Array',true,1, 20);
-      util.validarParametro('dinamicos', req.body.dinamicos,'Array',true,1, 20);
-      util.validarParametro('firmaUsuario', req.body.firmaUsuario,'String',true,1, 50);
-      util.validarParametro('fechaHoraFirma', req.body.fechaHoraFirma,'String',true,1, 50);
+      util.validarParametro('fecha', req.body.fecha,'String',true,1, 20);
+      util.validarParametro('votantes', req.body.votantes,'String',true,1, 20);
+      util.validarParametro('estadoVotantes', req.body.estadoVotantes,'String',true,1, 20);
+      util.validarParametro('numeroRondas', req.body.numeroRondas,'String',true,1, 20);
+      util.validarParametro('tipoVotantes', req.body.tipoVotantes,'String',true,1, 50);
+      util.validarParametro('eleccionCandidatos', req.body.eleccionCandidatos,'Array',true,1, 20);
+      util.validarParametro('eleccionJudicial', req.body.eleccionJudicial,'Array',true,1, 20);
+    
      
+    
       console.log(req.body);
       //convierte en string los arreglos, ya que el chaincode no soporte envio de arreglos
-      req.body.estaticos= JSON.stringify(req.body.estaticos);
-      req.body.dinamicos= JSON.stringify(req.body.dinamicos);
-       //funcion que llama el chaincode para crear el documento
+      req.body.eleccionCandidatos= JSON.stringify(req.body.eleccionCandidatos);
+      req.body.eleccionJudicial= JSON.stringify(req.body.eleccionJudicial);
+      //funcion que llama el chaincode para crear el voto electronico
       const response = await updateAsset.update(req.body);
       res.json(response);
   
   } catch (error) {
     console.error(`Failed to update transaction: ${error}`);
     res.status(500).json(
-      error
-   );
+       error
+    );
   }
 
 });
 
-//Punto de acceso DELETE para eliminar el documento por id
-app.delete('/api/firma/:id', async function (req, res) {
+//Punto de acceso DELETE para eliminar el voto electronico por id
+app.delete('/api/voto-electronico/:id', async function (req, res) {
   try {
 
      console.log(req.params.id);
@@ -132,7 +135,7 @@ app.delete('/api/firma/:id', async function (req, res) {
      console.log(`Response : ${msj}`);
      //Valida que la respuesta no tenga el codigo 400
      if(msj.code!="400"){
-       //funcion que llama el chaincode para actualizar el documento
+       //funcion que llama el chaincode para actualizar el voto electronico
        msj.state="Eliminado";
        msj.assetId=req.params.id;
        console.log(`Inicia actualizar el estado a eliminado`);
@@ -152,8 +155,8 @@ app.delete('/api/firma/:id', async function (req, res) {
 })
 
 
-app.listen(8088, ()=>{
+app.listen(8089, ()=>{
   console.log("***********************************");
-  console.log("API server listening at localhost:8088");
+  console.log("API server listening at localhost:8089");
   console.log("***********************************");
 });

@@ -54,16 +54,44 @@ describe('ProcessAssetContract', () => {
       
         let engineList= [{ "key":"documento","value":"cedula"}];
         let associatedDocuments=["yw2y2u21uy"];
+        let firmantes=["yw2y2u21uy"];
         it('should create a my asset', async () => {
-            
-            
-            await contract.createProcessAsset(ctx, '1003', 'my asset 1003 value','my type', 'create', 'andres', 'excute',JSON.stringify(engineList), JSON.stringify(associatedDocuments));
+
+            await contract.createProcessAsset(ctx, 
+                '1003', 
+                'asset tipo',
+                'asset estado',
+                'asset owner',
+                'asset codigo',
+                'asset codigo',
+                'asset juridccion',
+                'asset despacho',
+                'asset demandante',
+                'asset demandado',
+                 JSON.stringify(engineList),
+                 JSON.stringify(associatedDocuments),
+                 JSON.stringify(firmantes)
+                );
             ctx.stub.putState.should.have.been.calledOnceWithExactly('1003', Buffer.from('{"value":"my asset 1003 value"}'));
         });
 
         it('should throw an error for a my asset that already exists', async () => {
             
-            await contract.createProcessAsset(ctx, '1001', 'myvalue','my type', 'create', 'andres', 'excute',JSON.stringify(engineList), JSON.stringify(associatedDocuments)).should.be.rejectedWith(/The my asset 1001 already exists/);
+            await contract.createProcessAsset(ctx, 
+                '1003', 
+                'asset tipo',
+                'asset estado',
+                'asset owner',
+                'asset codigo',
+                'asset codigo',
+                'asset juridccion',
+                'asset despacho',
+                'asset demandante',
+                'asset demandado',
+                 JSON.stringify(engineList),
+                 JSON.stringify(associatedDocuments),
+                 JSON.stringify(firmantes)
+                ).should.be.rejectedWith(/The my asset 1001 already exists/);
         });
 
     });
@@ -83,14 +111,43 @@ describe('ProcessAssetContract', () => {
     describe('#updateProcessAsset', () => {
         let engineList= [{ "key":"documento","value":"cedula"}];
         let associatedDocuments=["yw2y2u21uy"];
+        let firmantes=["yw2y2u21uy"];
 
         it('should update a my asset', async () => {
-            await contract.updateProcessAsset(ctx,  '1003', 'my asset 1003 value','my type', 'create', 'andres', 'excute',JSON.stringify(engineList), JSON.stringify(associatedDocuments));
+            await contract.updateProcessAsset(ctx,  
+                '1003', 
+                'asset tipo',
+                'asset estado',
+                'asset owner',
+                'asset codigo',
+                'asset codigo',
+                'asset juridccion',
+                'asset despacho',
+                'asset demandante',
+                'asset demandado',
+                 JSON.stringify(engineList),
+                 JSON.stringify(associatedDocuments),
+                 JSON.stringify(firmantes)
+                );
             ctx.stub.putState.should.have.been.calledOnceWithExactly('1001', Buffer.from('{"value":"my asset 1001 new value"}'));
         });
 
         it('should throw an error for a my asset that does not exist', async () => {
-            await contract.updateProcessAsset(ctx, '1003', 'my asset 1003 value','my type', 'create', 'andres', 'excute',JSON.stringify(engineList), JSON.stringify(associatedDocuments)).should.be.rejectedWith(/The my asset 1003 does not exist/);
+            await contract.updateProcessAsset(ctx, 
+                '1003', 
+                'asset tipo',
+                'asset estado',
+                'asset owner',
+                'asset codigo',
+                'asset codigo',
+                'asset juridccion',
+                'asset despacho',
+                'asset demandante',
+                'asset demandado',
+                 JSON.stringify(engineList),
+                 JSON.stringify(associatedDocuments),
+                 JSON.stringify(firmantes)
+                ).should.be.rejectedWith(/The my asset 1003 does not exist/);
         });
 
     });

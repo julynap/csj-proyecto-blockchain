@@ -32,8 +32,9 @@ app.get('/api/reparto/proceso/:id', async function (req, res) {
      console.log(msj);
      //Valida que la respuesta no tenga el codigo 400
      if(msj.code!="400"){
-        msj.associatedDocuments= JSON.parse(msj.associatedDocuments);
-        msj.engineList=JSON.parse(msj.engineList);
+        msj.documentosAsociados= JSON.parse(msj.documentosAsociados);
+        msj.firmantes=JSON.parse(msj.firmantes);
+        msj.resultadosMotor=JSON.parse(msj.resultadosMotor);
         response ={
                     codigo:200,
                     mensaje:"Transacción Exitosa",
@@ -56,26 +57,32 @@ app.post('/api/reparto/proceso', async function (req, res) {
 
   try {
       //Validar estructura de entrada del api
-      util.validarParametro('assetId', req.body.assetId,'String',true,1, 20);
-      util.validarParametro('code', req.body.code,'String',true,1, 20);
-      util.validarParametro('type', req.body.type,'String',true,1, 20);
-      util.validarParametro('state', req.body.state,'String',true,1, 20);
+      util.validarParametro('id', req.body.id,'String',true,1, 20);
+      util.validarParametro('tipo', req.body.tipo,'String',true,1, 20);
+      util.validarParametro('estado', req.body.estado,'String',true,1, 20);
       util.validarParametro('owner', req.body.owner,'String',true,1, 20);
-      util.validarParametro('action', req.body.action,'String',true,1, 20);
-      util.validarParametro('engineList', req.body.engineList,'Array',true,1, 20);
-      util.validarParametro('associatedDocuments', req.body.associatedDocuments,'Array',true,1, 20);
-    
+      util.validarParametro('codigo', req.body.codigo,'String',true,1, 20);
+      util.validarParametro('accion', req.body.accion,'String',true,1, 20);
+      util.validarParametro('juridiccion', req.body.juridiccion,'String',true,1, 20);
+      util.validarParametro('despacho', req.body.despacho,'String',true,1, 20);
+      util.validarParametro('demandante', req.body.demandante,'String',true,1, 20);
+      util.validarParametro('demandado', req.body.demandado,'String',true,1, 20);
+      util.validarParametro('firmantes', req.body.firmantes,'Array',true,1, 20);
+      util.validarParametro('resultadosMotor', req.body.resultadosMotor,'Array',true,1, 20);
+      util.validarParametro('documentosAsociados', req.body.documentosAsociados,'Array',true,1, 20);
+     
       //Transforma en hash los documentos que vienen en Base64
       let documentHash=[];
-      req.body.associatedDocuments.forEach(element => {
+      req.body.documentosAsociados.forEach(element => {
           documentHash.push(md5(element));
       });
-      req.body.associatedDocuments=documentHash;
+      req.body.documentosAsociados=documentHash;
       
       console.log(req.body);
       //convierte en string los arreglos, ya que el chaincode no soporte envio de arreglos
-      req.body.engineList= JSON.stringify(req.body.engineList);
-      req.body.associatedDocuments= JSON.stringify(req.body.associatedDocuments);
+      req.body.firmantes= JSON.stringify(req.body.firmantes);
+      req.body.resultadosMotor= JSON.stringify(req.body.resultadosMotor);
+      req.body.documentosAsociados= JSON.stringify(req.body.documentosAsociados);
       //funcion que llama el chaincode para crear el proceso
       const response = await createAsset.create(req.body);
       res.json(response);
@@ -95,19 +102,25 @@ app.put('/api/reparto/proceso', async function (req, res) {
 
   try {
       //Validar estructura de entrada del api
-      util.validarParametro('assetId', req.body.assetId,'String',true,1, 20);
-      util.validarParametro('code', req.body.code,'String',true,1, 20);
-      util.validarParametro('type', req.body.type,'String',true,1, 20);
-      util.validarParametro('state', req.body.state,'String',true,1, 20);
+      util.validarParametro('id', req.body.id,'String',true,1, 20);
+      util.validarParametro('tipo', req.body.tipo,'String',true,1, 20);
+      util.validarParametro('estado', req.body.estado,'String',true,1, 20);
       util.validarParametro('owner', req.body.owner,'String',true,1, 20);
-      util.validarParametro('action', req.body.action,'String',true,1, 20);
-      util.validarParametro('engineList', req.body.engineList,'Array',true,1, 20);
-      util.validarParametro('associatedDocuments', req.body.associatedDocuments,'Array',true,1, 20);
+      util.validarParametro('codigo', req.body.codigo,'String',true,1, 20);
+      util.validarParametro('accion', req.body.accion,'String',true,1, 20);
+      util.validarParametro('juridiccion', req.body.juridiccion,'String',true,1, 20);
+      util.validarParametro('despacho', req.body.despacho,'String',true,1, 20);
+      util.validarParametro('demandante', req.body.demandante,'String',true,1, 20);
+      util.validarParametro('demandado', req.body.demandado,'String',true,1, 20);
+      util.validarParametro('firmantes', req.body.firmantes,'Array',true,1, 20);
+      util.validarParametro('resultadosMotor', req.body.resultadosMotor,'Array',true,1, 20);
+      util.validarParametro('documentosAsociados', req.body.documentosAsociados,'Array',true,1, 20);
 
       console.log(req.body);
       //convierte en json  los arreglos que estan en string, ya que el chaincode no soporte los arreglos
-      req.body.engineList= JSON.stringify(req.body.engineList);
-      req.body.associatedDocuments= JSON.stringify(req.body.associatedDocuments);
+      req.body.firmantes= JSON.stringify(req.body.firmantes);
+      req.body.resultadosMotor= JSON.stringify(req.body.resultadosMotor);
+      req.body.documentosAsociados= JSON.stringify(req.body.documentosAsociados);
       //funcion que llama el chaincode para crear el proceso
       const response = await updateAsset.update(req.body);
       res.json(response);

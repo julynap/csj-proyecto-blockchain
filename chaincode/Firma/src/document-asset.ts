@@ -10,22 +10,36 @@ export class DocumentAsset {
 
     
     @Property()
-    public type: string;
+    public id: string;
 
     @Property()
-    public state: string;
+    public estado: string;
 
     @Property()
     public owner: string;
 
     @Property()
-    public action: string;
+    public procesoDinamico: string;
 
     @Property()
-    public description: string;
+    public documentoOriginal: string;
 
+    @Property()
+    public plazo: string;
+
+    @Property()
+    public estaticos: string;
+
+    @Property()
+    public dinamicos: string;
+
+    @Property()
+    public firmaUsuario: string;
+
+    @Property()
+    public fechaHoraFirma: string;
   
-    
+
 
     
 }

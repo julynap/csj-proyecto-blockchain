@@ -14,7 +14,18 @@ async function update(object) {
     let contract = await connect.connectNetwork();
 
     // update the specified transaction.
-    const result = await contract.submitTransaction('updateDocumentAsset',  object.assetId, object.description,object.type, object.state, object.owner, object.action);
+    const result = await contract.submitTransaction('updateDocumentAsset', 
+    object.id, 
+    object.estado,
+    object.owner, 
+    object.procesoDinamico, 
+    object.documentoOriginal, 
+    object.plazo,
+    object.estaticos,
+    object.dinamicos,
+    object.firmaUsuario,
+    object.fechaHoraFirma
+     );
     console.log('Transaction has been updated');
 
     // Disconnect from the gateway.

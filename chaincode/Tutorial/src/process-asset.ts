@@ -10,28 +10,44 @@ export class ProcessAsset {
 
     
     @Property()
-    public type: string;
+    public processAssetId: string;
 
     @Property()
-    public state: string;
+    public tipo: string;
+
+    @Property()
+    public estado: string;
 
     @Property()
     public owner: string;
 
     @Property()
-    public code: string;
+    public codigo: string;
 
     @Property()
-    public action: string;
+    public accion: string;
 
     @Property()
-    public engineList: string;
+    public juridiccion: string;
 
     @Property()
-    public associatedDocuments: string;
+    public despacho: string;
+
+    @Property()
+    public demandante: string;
+
     
+    @Property()
+    public demandado: string;
+
+    @Property()
+    public firmantes: string;
+
+    @Property()
+    public resultadosMotor: string;
+
+    @Property()
+    public documentosAsociados: string;
    
-    
-
     
 }

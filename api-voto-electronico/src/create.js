@@ -14,32 +14,31 @@ async function create(object) {
     let contract = await connect.connectNetwork();
 
     // Submit the specified transaction.
-    const result = await contract.submitTransaction('createDocumentAsset', 
-    object.id, 
+    const result = await contract.submitTransaction('createVoteAsset', 
+    object.id,
+    object.nombre,
     object.estado,
-    object.owner, 
-    object.procesoDinamico, 
-    object.documentoOriginal, 
-    object.plazo,
-    object.estaticos,
-    object.dinamicos,
-    object.firmaUsuario,
-    object.fechaHoraFirma
+    object.fecha,
+    object.votantes,
+    object.estadoVotantes,
+    object.numeroRondas,
+    object.tipoVotantes,
+    object.eleccionCandidatos,
+    object.eleccionJudicial
     );
-
 
     console.log('Transaction has been submitted');
 
      let response= JSON.parse(result);
-     
+    
      return response;
 
   } catch (error) {
     console.error('Failed to submit transaction:',error);
     let msgResponse= {
-      codigo: 500,
-      mensaje: 'Failed to submit transaction:'+error 
-  }
+        codigo: 500,
+        mensaje: 'Failed to submit transaction:'+error 
+    }
 
     return msgResponse;
   }

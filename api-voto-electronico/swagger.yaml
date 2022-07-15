@@ -1,0 +1,293 @@
+openapi: 3.0.1
+info:
+  title: API Voto Electronico
+  description: API Rest, consejo superior.<h1> Controles de cambio <hr>20-06-2022
+  version: 2.0.0
+servers:
+- url: https://test.com:20320/api/voto-electronico
+paths:
+  /:
+ 
+    get:
+      tags:
+      - Consultar-voto-electronico
+      summary: Consultar voto-electronico por id voto-electronico
+      description: This operation is to know if the service is active
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/voto-electronico-consulta'
+        500:
+          description: Error de servidor/servicio inactivo, validar con soporte.
+          content: {}
+    post:
+      tags:
+      - Crear-voto-electronico.
+      summary: voto-electronico
+      description: voto-electronico
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/voto-electronico-rq'
+        required: false
+      responses:
+        200:
+          description: Return
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/voto-electronico-rs'
+        404:
+          $ref: '#/components/schemas/voto-electronico-generica'
+      x-codegen-request-body-name: crear-voto-electronico
+      
+      
+    put:
+      tags:
+      - Actualizar-voto-electronico
+      summary: voto-electronico
+      description: voto-electronico
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/voto-electronico-rq'
+        required: false
+      responses:
+        200:
+          description: Return
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/voto-electronico-rs'
+        404:
+          $ref: '#/components/schemas/voto-electronico-generica'
+      x-codegen-request-body-name: actualizar-voto-electronico
+
+    delete:
+      tags:
+      - Eliminar-voto-electronico
+      summary: voto-electronico
+      description: voto-electronico
+
+      responses:
+        200:
+          description: Return
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/voto-electronico-rs'
+        404:
+          $ref: '#/components/schemas/voto-electronico-generica'
+      x-codegen-request-body-name: actualizar-voto-electronico
+  
+#------------------------------------------------------------------------------------  
+components:
+  schemas:
+  
+ 
+            
+    voto-electronico-rq:
+      type: object
+      properties:
+        id:
+          maxLength: 50
+          type: string
+          description: id
+        nombre:
+          maxLength: 50
+          type: string
+          description: Nombre de votación
+        estado:
+          maxLength: 50
+          type: string
+          description: Estado del proceso
+        fecha:
+          maxLength: 50
+          type: string
+          description: Fecha y hora de actualización
+        votantes:
+          maxLength: 50
+          type: string
+          description: Votantes
+        estadoVotantes:
+          maxLength: 50
+          type: string
+          description: Estado de votantes
+        numeroRondas:
+          maxLength: 50
+          type: string
+          description: Numero de rondas de votación
+        tipoVotantes:
+          maxLength: 50
+          type: string
+          description: juridicion
+
+        eleccionCandidatos:
+          exclusiveMinimum: true
+          type: array
+          description: eleccion de candidatos
+          items:
+            type: object
+            properties:
+              candidato:
+                type: string
+                description: nombre del candidato
+              votos:
+                type: string
+                description: número de votos x candidato.
+              rondas:
+                type: string
+                description: Numero rondas
+              estado:
+                type: string
+                description: Estado de voto por votante.
+              elegido:
+                type: boolean
+                description: Candidato elegido
+        eleccionJudicial:
+          exclusiveMinimum: true
+          type: array
+          description: Eleccion judicial
+          items:
+            type: object
+            properties:
+              detalle:
+                type: string
+                description: Detalle de ponencia.
+              ponente:
+                type: string
+                description: Nombre del ponente
+              estado:
+                type: string
+                description: estado ponencia
+              cantidad:
+                type: string
+                description: cantidad x tipo de voto.
+              tipoDetalle:
+                type: string
+                description: detalle de tipo de voto x votantes
+ 
+          
+
+
+
+#------------------------------------------------------------------------------------ 
+    
+
+    
+    
+    voto-electronico-rs:
+      type: object
+      properties:
+            codigo:
+              type: string
+            mensaje:
+              type: string
+               
+               
+    voto-electronico-consulta:
+      type: object
+      properties:
+            codigo:
+              type: string
+            mensaje:
+              type: string
+            contenido:
+              type: object
+              properties:
+               
+                id:
+                  maxLength: 50
+                  type: string
+                  description: id
+                nombre:
+                  maxLength: 50
+                  type: string
+                  description: Nombre de votación
+                estado:
+                  maxLength: 50
+                  type: string
+                  description: Estado del proceso
+                fecha:
+                  maxLength: 50
+                  type: string
+                  description: Fecha y hora de actualización
+                votantes:
+                  maxLength: 50
+                  type: string
+                  description: Votantes
+                estadoVotantes:
+                  maxLength: 50
+                  type: string
+                  description: Estado de votantes
+                numeroRondas:
+                  maxLength: 50
+                  type: string
+                  description: Numero de rondas de votación
+                tipoVotantes:
+                  maxLength: 50
+                  type: string
+                  description: juridicion
+        
+                eleccionCandidatos:
+                  exclusiveMinimum: true
+                  type: array
+                  description: eleccion de candidatos
+                  items:
+                    type: object
+                    properties:
+                      candidato:
+                        type: string
+                        description: nombre del candidato
+                      votos:
+                        type: string
+                        description: número de votos x candidato.
+                      rondas:
+                        type: string
+                        description: Numero rondas
+                      estado:
+                        type: string
+                        description: Estado de voto por votante.
+                      elegido:
+                        type: boolean
+                        description: Candidato elegido
+                eleccionJudicial:
+                  exclusiveMinimum: true
+                  type: array
+                  description: Eleccion judicial
+                  items:
+                    type: object
+                    properties:
+                      detalle:
+                        type: string
+                        description: Detalle de ponencia.
+                      ponente:
+                        type: string
+                        description: Nombre del ponente
+                      estado:
+                        type: string
+                        description: estado ponencia
+                      cantidad:
+                        type: string
+                        description: cantidad x tipo de voto.
+                      tipoDetalle:
+                        type: string
+                        description: detalle de tipo de voto x votantes
+                        
+    voto-electronico-generica:
+      type: object
+      properties:
+            codigo:
+              type: string
+            mensaje:
+              type: string
+            error:
+               type: string
+              
+    
+

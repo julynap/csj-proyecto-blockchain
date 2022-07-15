@@ -24,7 +24,7 @@ function validarParametro(nombre, val, tipo, obligatorio, minCifrasInt,  cifrasI
       var valor = val.toString();
       switch (tipo) {
           case 'String':
-              var patternStr = /^[0-9a-zA-ZáéíóúñÁÉÍÚÓÑ#@.,=\-_\s]+$/;
+              var patternStr = /^[0-9a-zA-ZáéíóúñÁÉÍÚÓÑ#@.,\-_:\s]+$/;
               var validPatternStr = true;
               validPatternStr = validPatternStr && patternStr.test(valor);
               if (!validPatternStr) mensaje = 'Parametro String ' + nombre + ' invalido';

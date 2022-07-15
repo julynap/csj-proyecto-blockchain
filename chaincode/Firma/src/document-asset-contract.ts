@@ -16,11 +16,17 @@ export class DocumentAssetContract extends Contract {
     }
 
     @Transaction()
-    public async createDocumentAsset(ctx: Context, documentAssetId: string, description: string,
-        type: string,
-        state: string,
+    public async createDocumentAsset(ctx: Context, 
+        documentAssetId: string, 
+        estado: string,
         owner: string,
-        action: string
+        procesoDinamico: string,
+        documentoOriginal: string,
+        plazo: string,
+        estaticos: string,
+        dinamicos: string,
+        firmaUsuario: string,
+        fechaHoraFirma: string
         ): Promise<Object> {
 
         const exists: boolean = await this.documentAssetExists(ctx, documentAssetId);
@@ -33,11 +39,19 @@ export class DocumentAssetContract extends Contract {
           }
         
         const documentAsset: DocumentAsset = new DocumentAsset();
-        documentAsset.description = description;
-        documentAsset.type = type;
-        documentAsset.state = state;
+        documentAsset.id = documentAssetId;
+        documentAsset.estado = estado;
         documentAsset.owner = owner;
-        documentAsset.action = action;
+        documentAsset.procesoDinamico = procesoDinamico;
+        documentAsset.documentoOriginal = documentoOriginal;
+        documentAsset.plazo = plazo;
+        documentAsset.estaticos = estaticos;
+        documentAsset.dinamicos = dinamicos;
+        documentAsset.firmaUsuario = firmaUsuario;
+        documentAsset.fechaHoraFirma = fechaHoraFirma;
+
+
+      
        
         const buffer: Buffer = Buffer.from(JSON.stringify(documentAsset));
         await ctx.stub.putState(documentAssetId, buffer);
@@ -54,7 +68,6 @@ export class DocumentAssetContract extends Contract {
     public async readDocumentAsset(ctx: Context, documentAssetId: string): Promise<Object> {
         const exists: boolean = await this.documentAssetExists(ctx, documentAssetId);
         if (!exists) {
-           // throw new Error(`The my asset ${documentAssetId} does not exist`);
            let msgResponse= {
                                code: 400,
                                message: `El asset ${documentAssetId} no existe` 
@@ -68,16 +81,21 @@ export class DocumentAssetContract extends Contract {
     }
 
     @Transaction()
-    public async updateDocumentAsset(ctx: Context, documentAssetId: string, description: string,
-            type: string,
-            state: string,
-            owner: string,
-            action: string
+    public async updateDocumentAsset(ctx: Context, 
+        documentAssetId: string, 
+        estado: string,
+        owner: string,
+        procesoDinamico: string,
+        documentoOriginal: string,
+        plazo: string,
+        estaticos: string,
+        dinamicos: string,
+        firmaUsuario: string,
+        fechaHoraFirma: string
             ): Promise<Object> {
 
         const exists: boolean = await this.documentAssetExists(ctx, documentAssetId);
         if (!exists) {
-            //throw new Error(`The my asset ${documentAssetId} does not exist`);
             let msgResponse ={
                 codigo: 400,
                 mensaje:"El  asset " +documentAssetId + " no existe."
@@ -86,11 +104,16 @@ export class DocumentAssetContract extends Contract {
         }
       
         const documentAsset: DocumentAsset = new DocumentAsset();
-        documentAsset.description = description;
-        documentAsset.type = type;
-        documentAsset.state = state;
+        documentAsset.id = documentAssetId;
+        documentAsset.estado = estado;
         documentAsset.owner = owner;
-        documentAsset.action = action;
+        documentAsset.procesoDinamico = procesoDinamico;
+        documentAsset.documentoOriginal = documentoOriginal;
+        documentAsset.plazo = plazo;
+        documentAsset.estaticos = estaticos;
+        documentAsset.dinamicos = dinamicos;
+        documentAsset.firmaUsuario = firmaUsuario;
+        documentAsset.fechaHoraFirma = fechaHoraFirma;
        
         const buffer: Buffer = Buffer.from(JSON.stringify(documentAsset));
         await ctx.stub.putState(documentAssetId, buffer);
@@ -106,8 +129,7 @@ export class DocumentAssetContract extends Contract {
     public async deleteDocumentAsset(ctx: Context, documentAssetId: string): Promise<Object> {
         const exists: boolean = await this.documentAssetExists(ctx, documentAssetId);
         if (!exists) {
-            //throw new Error(`The my asset ${documentAssetId} does not exist`);
-            let msgResponse ={
+             let msgResponse ={
                 codigo: 400,
                 mensaje:"El asset " +documentAssetId + " no existe."
             }

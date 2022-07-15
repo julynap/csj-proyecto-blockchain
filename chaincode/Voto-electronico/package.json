@@ -1,7 +1,7 @@
 {
-  "name": "AssetProceso",
-  "version": "0.0.5",
-  "description": "Process Smart Contract",
+  "name": "AssetVote",
+  "version": "0.0.3",
+  "description": "Vote Smart Contract",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "engines": {

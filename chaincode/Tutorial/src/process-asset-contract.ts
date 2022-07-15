@@ -16,14 +16,21 @@ export class ProcessAssetContract extends Contract {
     }
 
     @Transaction()
-    public async createProcessAsset(ctx: Context, processAssetId: string, code: string,
-        type: string,
-        state: string,
+    public async createProcessAsset(ctx: Context, 
+        processAssetId: string,
+        tipo: string,
+        estado: string,
         owner: string,
-        action: string,
-        engineList: string,
-        associatedDocuments: string
-        ): Promise<Object> {
+        codigo: string,
+        accion: string,
+        juridiccion: string,
+        despacho: string,
+        demandante: string,
+        demandado: string,
+        firmantes: string,
+        resultadosMotor: string,
+        documentosAsociados: string
+       ): Promise<Object> {
 
         const exists: boolean = await this.processAssetExists(ctx, processAssetId);
         if (exists) {
@@ -35,13 +42,20 @@ export class ProcessAssetContract extends Contract {
           }
         
         const processAsset: ProcessAsset = new ProcessAsset();
-        processAsset.code = code;
-        processAsset.type = type;
-        processAsset.state = state;
-        processAsset.owner = owner;
-        processAsset.action = action;
-        processAsset.engineList = engineList;
-        processAsset.associatedDocuments = associatedDocuments;
+     
+        processAsset.processAssetId=processAssetId;
+        processAsset.tipo= tipo;
+        processAsset.estado= estado;
+        processAsset.owner= owner;
+        processAsset.codigo= codigo;
+        processAsset.accion= accion;
+        processAsset.juridiccion= juridiccion;
+        processAsset.despacho= despacho;
+        processAsset.demandante= demandante;
+        processAsset.demandado = demandado;
+        processAsset.firmantes=firmantes;
+        processAsset.resultadosMotor=resultadosMotor;
+        processAsset.documentosAsociados=documentosAsociados;
        
         const buffer: Buffer = Buffer.from(JSON.stringify(processAsset));
         await ctx.stub.putState(processAssetId, buffer);
@@ -72,13 +86,20 @@ export class ProcessAssetContract extends Contract {
     }
 
     @Transaction()
-    public async updateProcessAsset(ctx: Context, processAssetId: string, code: string,
-            type: string,
-            state: string,
-            owner: string,
-            action: string,
-            engineList: string,
-            associatedDocuments: string
+    public async updateProcessAsset(ctx: Context, 
+        processAssetId: string,
+        tipo: string,
+        estado: string,
+        owner: string,
+        codigo: string,
+        accion: string,
+        juridiccion: string,
+        despacho: string,
+        demandante: string,
+        demandado: string,
+        firmantes: string,
+        resultadosMotor: string,
+        documentosAsociados: string
             ): Promise<Object> {
 
         const exists: boolean = await this.processAssetExists(ctx, processAssetId);
@@ -92,13 +113,18 @@ export class ProcessAssetContract extends Contract {
         }
       
         const processAsset: ProcessAsset = new ProcessAsset();
-        processAsset.code = code;
-        processAsset.type = type;
-        processAsset.state = state;
-        processAsset.owner = owner;
-        processAsset.action = action;
-        processAsset.engineList = engineList;
-        processAsset.associatedDocuments = associatedDocuments;
+        processAsset.tipo= tipo;
+        processAsset.estado= estado;
+        processAsset.owner= owner;
+        processAsset.codigo= codigo;
+        processAsset.accion= accion;
+        processAsset.juridiccion= juridiccion;
+        processAsset.despacho= despacho;
+        processAsset.demandante= demandante;
+        processAsset.demandado = demandado;
+        processAsset.firmantes=firmantes;
+        processAsset.resultadosMotor=resultadosMotor;
+        processAsset.documentosAsociados=documentosAsociados;
        
         const buffer: Buffer = Buffer.from(JSON.stringify(processAsset));
         await ctx.stub.putState(processAssetId, buffer);

@@ -14,7 +14,21 @@ async function create(object) {
     let contract = await connect.connectNetwork();
 
     // Submit the specified transaction.
-    const result = await contract.submitTransaction('createProcessAsset', object.assetId, object.code,object.type, object.state, object.owner, object.action,object.engineList, object.associatedDocuments);
+    const result = await contract.submitTransaction('createProcessAsset', 
+    object.id,
+    object.tipo,
+    object.estado,
+    object.owner,
+    object.codigo,
+    object.accion,
+    object.juridiccion,
+    object.despacho,
+    object.demandante,
+    object.demandado,
+    object.firmantes,
+    object.resultadosMotor,
+    object.documentosAsociados);
+
     console.log('Transaction has been submitted');
 
      let response= JSON.parse(result);

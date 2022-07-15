@@ -53,15 +53,36 @@ describe('DocumentAssetContract', () => {
     describe('#createDocumentAsset', () => {
       
         it('should create a my asset', async () => {
-            
-            
-            await contract.createDocumentAsset(ctx, '1003', 'my asset 1003 value','my type', 'create', 'andres', 'excute');
+           
+            await contract.createDocumentAsset(ctx, 
+                '1003',
+                'estado',
+                'owner',
+                'procesoDinamico',
+                'documentoOriginal',
+                'plazo',
+                'estaticos',
+                'dinamicos',
+                'firmaUsuario',
+                'fechaHoraFirma'
+                   );
             ctx.stub.putState.should.have.been.calledOnceWithExactly('1003', Buffer.from('{"value":"my asset 1003 value"}'));
         });
 
         it('should throw an error for a my asset that already exists', async () => {
             
-            await contract.createDocumentAsset(ctx, '1001', 'myvalue','my type', 'create', 'andres', 'excute').should.be.rejectedWith(/The my asset 1001 already exists/);
+            await contract.createDocumentAsset(ctx, 
+                '1003',
+                'estado',
+                'owner',
+                'procesoDinamico',
+                'documentoOriginal',
+                'plazo',
+                'estaticos',
+                'dinamicos',
+                'firmaUsuario',
+                'fechaHoraFirma'
+                ).should.be.rejectedWith(/The my asset 1001 already exists/);
         });
 
     });
@@ -81,12 +102,34 @@ describe('DocumentAssetContract', () => {
     describe('#updateDocumentAsset', () => {
         
         it('should update a my asset', async () => {
-            await contract.updateDocumentAsset(ctx,  '1003', 'my asset 1003 value','my type', 'create', 'andres', 'excute');
+            await contract.updateDocumentAsset(ctx,  
+                '1003',
+                'estado',
+                'owner',
+                'procesoDinamico',
+                'documentoOriginal',
+                'plazo',
+                'estaticos',
+                'dinamicos',
+                'firmaUsuario',
+                'fechaHoraFirma'
+                );
             ctx.stub.putState.should.have.been.calledOnceWithExactly('1001', Buffer.from('{"value":"my asset 1001 new value"}'));
         });
 
         it('should throw an error for a my asset that does not exist', async () => {
-            await contract.updateDocumentAsset(ctx, '1003', 'my asset 1003 value','my type', 'create', 'andres', 'excute').should.be.rejectedWith(/The my asset 1003 does not exist/);
+            await contract.updateDocumentAsset(ctx, 
+                '1003',
+                'estado',
+                'owner',
+                'procesoDinamico',
+                'documentoOriginal',
+                'plazo',
+                'estaticos',
+                'dinamicos',
+                'firmaUsuario',
+                'fechaHoraFirma'
+                ).should.be.rejectedWith(/The my asset 1003 does not exist/);
         });
 
     });
